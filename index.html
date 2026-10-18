@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hafsa Usman | Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Inter:wght@300;400;500;600&family=Lexend:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="antialiased relative overflow-x-hidden selection:bg-[#A78BCA] selection:text-white">
+
+    <div class="glow-purple"></div>
+    <div class="glow-peach"></div>
+
+    <div class="max-w-6xl mx-auto px-6 py-12 md:py-20 relative z-10">
+        
+        <div id="nav-container"></div>
+        <div id="hero-container"></div>
+        <div id="about-container"></div>
+        <div id="projects-container"></div>
+        <div id="ui-ux-container"></div>
+        <div id="editorial-container"></div>
+        <div id="certifications-container"></div>
+        <div id="footer-container"></div>
+
+    </div>
+
+    <!-- Modals -->
+    <div id="imageModal" class="fixed inset-0 z-50 hidden bg-[#1A1525]/95 backdrop-blur-sm flex items-center justify-center p-4 md:p-8 opacity-0 transition-opacity duration-300">
+        <button onclick="closeModal()" class="absolute top-6 right-6 text-white hover:text-[#EAA994] transition-colors z-50">
+            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+        <img id="modalImage" src="" alt="Full Resolution" class="max-w-full max-h-[90vh] object-contain rounded-md shadow-2xl scale-95 transition-transform duration-300" />
+    </div>
+
+    <div id="flowModal" class="fixed inset-0 z-[60] hidden bg-[#0A0810] flex flex-col opacity-0 transition-opacity duration-500">
+        <div class="flex justify-between items-center p-6 text-white border-b border-white/10 shrink-0">
+            <div class="flex items-center gap-4">
+                <h3 id="flowTitle" class="text-xl font-bold font-lexend tracking-wide text-white drop-shadow-md"></h3>
+                <span class="text-xs font-medium bg-white/10 px-3 py-1 rounded-full text-white/70">Scroll horizontally to view flow</span>
+            </div>
+            <button onclick="closeFlow()" class="hover:text-[#EAA994] transition-colors flex items-center gap-2 text-sm font-medium">
+                Close Experience <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+        <div id="flowContainer" class="flex-1 overflow-x-auto overflow-y-hidden flex items-center gap-12 p-12 snap-x snap-mandatory hide-scrollbar"></div>
+    </div>
+
+    <script>
+        async function loadHTML(elementId, filePath) {
+            try {
+                const noCacheUrl = filePath + '?v=' + new Date().getTime();
+                const response = await fetch(noCacheUrl);
+                document.getElementById(elementId).innerHTML = await response.text();
+            } catch (error) { 
+                console.error(`Error loading ${filePath}:`, error); 
+            }
+        }
+
+        loadHTML('nav-container', 'components/nav.html');
+        loadHTML('hero-container', 'components/hero.html');
+        loadHTML('about-container', 'components/about.html');
+        loadHTML('projects-container', 'components/projects.html');
+        loadHTML('ui-ux-container', 'components/ui-ux.html'); 
+        loadHTML('editorial-container', 'components/editorial.html'); 
+        loadHTML('certifications-container', 'components/certifications.html');
+        loadHTML('footer-container', 'components/footer.html');
+
+        function openModal(imageSrc) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            modalImg.src = imageSrc;
+            modal.classList.remove('hidden');
+            setTimeout(() => { modal.classList.remove('opacity-0'); modalImg.classList.remove('scale-95'); modalImg.classList.add('scale-100'); }, 10);
+            document.body.style.overflow = 'hidden';
+        }
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            modal.classList.add('opacity-0');
+            setTimeout(() => { modal.classList.add('hidden'); document.body.style.overflow = 'auto'; }, 300);
+        }
+
+        function openFlow(title, imageArray) {
+            const modal = document.getElementById('flowModal');
+            document.getElementById('flowTitle').innerText = title;
+            const container = document.getElementById('flowContainer');
+            container.innerHTML = ''; 
+            imageArray.forEach(imgSrc => {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'h-full shrink-0 snap-center flex items-center justify-center';
+                const img = document.createElement('img');
+                img.src = imgSrc;
+                img.className = 'max-h-full w-auto object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)] rounded-3xl border border-white/5';
+                wrapper.appendChild(img);
+                container.appendChild(wrapper);
+            });
+            modal.classList.remove('hidden');
+            setTimeout(() => modal.classList.remove('opacity-0'), 10);
+            document.body.style.overflow = 'hidden';
+        }
+        function closeFlow() {
+            const modal = document.getElementById('flowModal');
+            modal.classList.add('opacity-0');
+            setTimeout(() => { modal.classList.add('hidden'); document.body.style.overflow = 'auto'; }, 500);
+        }
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') { closeModal(); closeFlow(); }
+        });
+    </script>
+</body>
+</html>

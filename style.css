@@ -1,0 +1,29 @@
+body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #F4EEF5 0%, #FFFDFB 50%, #FDF3E9 100%);
+            color: #2D283E;
+        }
+        h1, h2, h3, h4, .font-lexend { font-family: 'Lexend', sans-serif; }
+        .font-caveat { font-family: 'Caveat', cursive; }
+        .twilight-gradient-text {
+            background: linear-gradient(135deg, #8A63B4 0%, #CD7B62 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .twilight-gradient-bg { background: linear-gradient(135deg, #A78BCA 0%, #EAA994 100%); }
+        .glow-purple {
+            position: absolute; width: 500px; height: 500px; background: rgba(167, 139, 202, 0.15);
+            filter: blur(80px); border-radius: 50%; top: -100px; left: -100px; z-index: -1;
+        }
+        .glow-peach {
+            position: absolute; width: 400px; height: 400px; background: rgba(234, 169, 148, 0.15);
+            filter: blur(80px); border-radius: 50%; top: 30%; right: -50px; z-index: -1;
+        }
+        .project-card {
+            background: #FFFFFF; border: 1px solid #DED6E8; border-radius: 12px; transition: all 0.3s ease;
+        }
+        .project-card:hover {
+            border-color: #A78BCA; box-shadow: 0 10px 25px -5px rgba(167, 139, 202, 0.15); transform: translateY(-2px);
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
